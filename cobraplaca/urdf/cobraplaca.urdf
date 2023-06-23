@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<!-- 
+  Modificações foram feitas nessa descrição a fim de simular o robô no ambiente de simulação Gazebo
+  Autor: Vinícius Carvalho Gomes
+  email: viniciuscgomes.98@gmail.com
+-->
+<robot
+  name="cobraplaca">
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/cobraplaca</robotNamespace>
+    </plugin>
+  </gazebo>
+  <link name = "dummy"/>
+  <link
+    name="modulo1">
+    <inertial>
+      <origin
+        xyz="-0.19548 -0.0079371 -0.092787"
+        rpy="0 0 0" />
+      <mass
+        value="0.062449" />
+      <inertia
+        ixx="4.2331E-05"
+        ixy="8.2349E-07"
+        ixz="-3.8461E-06"
+        iyy="9.0357E-05"
+        iyz="-9.8697E-08"
+        izz="7.2959E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62745 0.62745 0.62745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo1">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint name = "dummy_joint" type = "fixed">
+    <parent link="dummy"/>
+    <child link="modulo1"/>
+  </joint>
+  <link
+    name="modulo2">
+    <inertial>
+      <origin
+        xyz="0.073686 -0.029721 -0.0008313"
+        rpy="0 0 0" />
+      <mass
+        value="0.062449" />
+      <inertia
+        ixx="4.2331E-05"
+        ixy="8.2349E-07"
+        ixz="-3.8461E-06"
+        iyy="9.0357E-05"
+        iyz="-9.8697E-08"
+        izz="7.2959E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62745 0.62745 0.62745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo2">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="-0.15473 0.091996 0.021784"
+      rpy="1.5708 0 0" />
+    <parent
+      link="modulo1" />
+    <child
+      link="modulo2" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="10.0"
+      velocity="0.5" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo3">
+    <inertial>
+      <origin
+        xyz="0.073686 -0.029721 -0.0008313"
+        rpy="0 0 0" />
+      <mass
+        value="0.062449" />
+      <inertia
+        ixx="4.2331E-05"
+        ixy="8.2349E-07"
+        ixz="-3.8461E-06"
+        iyy="9.0357E-05"
+        iyz="-9.8697E-08"
+        izz="7.2959E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62745 0.62745 0.62745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo3">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo2" />
+    <child
+      link="modulo3" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo4">
+    <inertial>
+      <origin
+        xyz="0.0736864302969557 -0.0297211972454861 -0.000831298567806088"
+        rpy="0 0 0" />
+      <mass
+        value="0.0624486089384005" />
+      <inertia
+        ixx="4.23306741017875E-05"
+        ixy="8.23488383173284E-07"
+        ixz="-3.84610240874935E-06"
+        iyy="9.03567329613313E-05"
+        iyz="-9.86970187562682E-08"
+        izz="7.29593550442413E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.627450980392157 0.627450980392157 0.627450980392157 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo4">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo3" />
+    <child
+      link="modulo4" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo5">
+    <inertial>
+      <origin
+        xyz="0.0736864302969558 -0.0297211972454855 -0.000831298567805991"
+        rpy="0 0 0" />
+      <mass
+        value="0.0624486089384005" />
+      <inertia
+        ixx="4.23306741017875E-05"
+        ixy="8.23488383173303E-07"
+        ixz="-3.84610240874932E-06"
+        iyy="9.03567329613312E-05"
+        iyz="-9.86970187568371E-08"
+        izz="7.2959355044241E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.627450980392157 0.627450980392157 0.627450980392157 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo5">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo4" />
+    <child
+      link="modulo5" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint4">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo6">
+    <inertial>
+      <origin
+        xyz="0.073686 -0.029721 -0.0008313"
+        rpy="0 0 0" />
+      <mass
+        value="0.062449" />
+      <inertia
+        ixx="4.2331E-05"
+        ixy="8.2349E-07"
+        ixz="-3.8461E-06"
+        iyy="9.0357E-05"
+        iyz="-9.8697E-08"
+        izz="7.2959E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62745 0.62745 0.62745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo6">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint5"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo5" />
+    <child
+      link="modulo6" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint5">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor5">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo7">
+    <inertial>
+      <origin
+        xyz="0.0736864303147165 -0.0297211972561647 -0.000831298559470214"
+        rpy="0 0 0" />
+      <mass
+        value="0.0624486089464186" />
+      <inertia
+        ixx="4.23306741091947E-05"
+        ixy="8.23488390584288E-07"
+        ixz="-3.84610242802216E-06"
+        iyy="9.03567330041933E-05"
+        iyz="-9.86970132555384E-08"
+        izz="7.29593550761642E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.627450980392157 0.627450980392157 0.627450980392157 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo7">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint6"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo6" />
+    <child
+      link="modulo7" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans6">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint6">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor6">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo8">
+    <inertial>
+      <origin
+        xyz="0.073686430296956 -0.0297211972454852 -0.000831298567805852"
+        rpy="0 0 0" />
+      <mass
+        value="0.0624486089384004" />
+      <inertia
+        ixx="4.23306741017869E-05"
+        ixy="8.23488383172666E-07"
+        ixz="-3.84610240874893E-06"
+        iyy="9.03567329613307E-05"
+        iyz="-9.86970187562574E-08"
+        izz="7.29593550442411E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo8.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.627450980392157 0.627450980392157 0.627450980392157 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo8.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo8">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint7"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo7" />
+    <child
+      link="modulo8" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans7">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint7">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor7">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo9">
+    <inertial>
+      <origin
+        xyz="0.073686 -0.029721 -0.0008313"
+        rpy="0 0 0" />
+      <mass
+        value="0.062449" />
+      <inertia
+        ixx="4.2331E-05"
+        ixy="8.2349E-07"
+        ixz="-3.8461E-06"
+        iyy="9.0357E-05"
+        iyz="-9.8697E-08"
+        izz="7.2959E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo9.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62745 0.62745 0.62745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo9.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo9">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint8"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo8" />
+    <child
+      link="modulo9" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans8">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint8">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor8">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link
+    name="modulo10">
+    <inertial>
+      <origin
+        xyz="0.073686 -0.029721 -0.0008313"
+        rpy="0 0 0" />
+      <mass
+        value="0.062449" />
+      <inertia
+        ixx="4.2331E-05"
+        ixy="8.2349E-07"
+        ixz="-3.8461E-06"
+        iyy="9.0357E-05"
+        iyz="-9.8697E-08"
+        izz="7.2959E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo10.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62745 0.62745 0.62745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cobraplaca/meshes/modulo10.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="modulo10">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    
+  </gazebo>
+  <joint
+    name="joint9"
+    type="revolute">
+    <origin
+      xyz="0.11444 0 -4.0212E-05"
+      rpy="0 0 0" />
+    <parent
+      link="modulo9" />
+    <child
+      link="modulo10" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0"
+      upper="2.0"
+      effort="100000000000.0"
+      velocity="6.28" />
+    <physics>
+      <ode cfm_damping = "true">
+        <limit cfm = "1.0"/>
+        <suspension cfm="1.0"/>
+      </ode>
+    </physics>
+  </joint>
+  <transmission name="trans9">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint9">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor9">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>
